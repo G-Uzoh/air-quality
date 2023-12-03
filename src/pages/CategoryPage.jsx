@@ -5,7 +5,7 @@ import Search from "../components/Search";
 
 const CategoryPage = () => {
   const { category } = useParams();
-  console.log(category);
+
   return (
     <>
       <Search />
