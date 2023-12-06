@@ -10,6 +10,7 @@ const CategoryPage = () => {
     <>
       <Search />
       <h2>Category page will be here</h2>
+      {/* <p>{import.meta.env.VITE_WEATHER_API_KEY}</p> */}
       <div>
         {category === 'weather'
             ? <Weather />
