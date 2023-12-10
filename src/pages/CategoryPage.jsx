@@ -3,14 +3,13 @@ import Weather from "./Weather";
 import AirQuality from "./AirQuality";
 import Search from "../components/Search";
 
-const CategoryPage = () => {
+const CategoryPage = ({ city, handleChange, handleSearch }) => {
   const { category } = useParams();
 
   return (
     <>
-      <Search />
+      <Search city={city} handleSearch={() => handleSearch(city)} handleChange={handleChange} />
       <h2>Category page will be here</h2>
-      {/* <p>{import.meta.env.VITE_WEATHER_API_KEY}</p> */}
       <div>
         {category === 'weather'
             ? <Weather />

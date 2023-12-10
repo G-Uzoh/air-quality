@@ -2,15 +2,15 @@ import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header>
-      <Link to="/">
-        <h1>Logo</h1>
+    <header className="flex justify-between items-center">
+      <Link to="/" className="mt-3 ml-4">
+        <h1>AirQ</h1>
       </Link>
-      <nav>
-        <NavLink to='/' className='link'>Home</NavLink>
-        <NavLink to='/weather' className='link'>Weather</NavLink>
-        <NavLink to='/air_quality' className='link'>Air Quality</NavLink>
-        <NavLink to='/about' className='link'>About</NavLink>
+      <nav className="mt-3">
+        <NavLink to='/' className='mr-4'>Home</NavLink>
+        <NavLink to='/weather'  className='mr-4'>Weather</NavLink>
+        <NavLink to='/air_quality'  className='mr-4'>Air Quality</NavLink>
+        <NavLink to='/about'  className='mr-4'>About</NavLink>
       </nav>
     </header>
   );
