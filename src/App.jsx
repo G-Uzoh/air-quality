@@ -1,50 +1,71 @@
-import { useState, useEffect } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import CategoryPage from './pages/CategoryPage';
-import Home from './pages/Home';
-import Root from './pages/Root';
-import About from './About';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CategoryPage from "./pages/CategoryPage";
+import Home from "./pages/Home";
+import Root from "./pages/Root";
+import About from "./pages/About";
+import axios from "axios";
 
 function App() {
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState("");
   const [coordinates, setCoordinates] = useState(null);
   const [airQualityData, setAirQualityData] = useState(null);
+  const [date, setDate] = useState(null);
 
-  const geocodingApiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${import.meta.env.VITE_GEOCODING_API_TOKEN}`;
+  const geocodingApiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${
+    import.meta.env.VITE_GEOCODING_API_TOKEN
+  }`;
 
-  const airPollutionApiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coordinates?.lat}&lon=${coordinates?.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
+  const airPollutionApiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${
+    coordinates?.lat
+  }&lon=${coordinates?.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
+
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   const handleChange = (e) => {
     const searchValue = e.target.value;
     setCity(searchValue);
-  }
+  };
 
   const handleSearch = () => {
     if (city) {
       getCoordinates();
     }
-  }
+  };
 
   const getCoordinates = async () => {
     try {
       const res = await axios.get(geocodingApiUrl);
       const data = res.data;
-     
+
       console.log(data);
 
       if (data.features.length > 0) {
         const [lon, lat] = data.features[0].geometry.coordinates;
-        
+
         setCoordinates({ lat, lon });
-        
       } else {
-        console.error('City not found!');
+        console.error("City not found!");
       }
     } catch (err) {
-      console.error('Error fetching coordinates', err.message);
+      console.error("Error fetching coordinates:", err.message);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,15 +73,24 @@ function App() {
         const res = await axios.get(airPollutionApiUrl);
         const data = res.data;
 
-        console.log(data);
-        setAirQualityData(data);
-        
+        setAirQualityData(data.list);
+
         console.log(data);
 
+        const timeOfRetrieval = new Date(data?.list[0].dt * 1000);
+
+        const fullDate = [
+          days[timeOfRetrieval.getDay()],
+          months[timeOfRetrieval.getMonth()],
+          timeOfRetrieval.getDate(),
+        ].join(" ");
+
+        setDate(fullDate);
+        console.log(fullDate);
       } catch (err) {
         console.error(err.message);
       }
-    }
+    };
 
     if (coordinates) {
       fetchData();
@@ -69,30 +99,38 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: <Root />,
       children: [
         {
-          path: '/',
+          path: "/",
           element: <Home />,
         },
         {
-          path: ':category',
-          element: <CategoryPage handleSearch={() => handleSearch(city)} city={city} handleChange={handleChange} />,
+          path: ":category",
+          element: (
+            <CategoryPage
+              handleSearch={() => handleSearch(city)}
+              city={city}
+              handleChange={handleChange}
+              date={date}
+              pollutionData={airQualityData}
+            />
+          ),
         },
         {
-          path: '/about',
-          element: <About />
-        }
+          path: "/about",
+          element: <About />,
+        },
       ],
     },
   ]);
 
   return (
-    <div className='bg-green-700 text-[#333]'>
+    <div className="bg-green-700 text-[#333]">
       <RouterProvider router={router} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

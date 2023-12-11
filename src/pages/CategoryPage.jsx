@@ -3,7 +3,7 @@ import Weather from "./Weather";
 import AirQuality from "./AirQuality";
 import Search from "../components/Search";
 
-const CategoryPage = ({ city, handleChange, handleSearch }) => {
+const CategoryPage = ({ city, handleChange, handleSearch, date, pollutionData }) => {
   const { category } = useParams();
 
   return (
@@ -13,7 +13,7 @@ const CategoryPage = ({ city, handleChange, handleSearch }) => {
       <div>
         {category === 'weather'
             ? <Weather />
-            : <AirQuality />
+            : <AirQuality date={date} pollutionData={pollutionData} />
         }
       </div>
     </>
