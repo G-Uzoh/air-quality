@@ -4,6 +4,7 @@ import CategoryPage from './pages/CategoryPage';
 import Home from './pages/Home';
 import Root from './pages/Root';
 import About from './About';
+import axios from 'axios';
 
 function App() {
   const [city, setCity] = useState('');
@@ -27,12 +28,12 @@ function App() {
 
   const getCoordinates = async () => {
     try {
-      const res = await fetch(geocodingApiUrl);
-      const data = await res.json();
+      const res = await axios.get(geocodingApiUrl);
+      const data = res.data;
      
       console.log(data);
 
-      if(data.features.length > 0) {
+      if (data.features.length > 0) {
         const [lon, lat] = data.features[0].geometry.coordinates;
         
         setCoordinates({ lat, lon });
@@ -48,8 +49,10 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(airPollutionApiUrl);
-        const data = await res.json();
+        const res = await axios.get(airPollutionApiUrl);
+        const data = res.data;
+
+        console.log(data);
         setAirQualityData(data);
         
         console.log(data);
