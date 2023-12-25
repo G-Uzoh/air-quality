@@ -10,7 +10,7 @@ function App() {
   const [city, setCity] = useState("");
   const [coordinates, setCoordinates] = useState(null);
   const [airQualityData, setAirQualityData] = useState(null);
-  const [date, setDate] = useState(null);
+  // const [date, setDate] = useState(null);
 
   const geocodingApiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${
     import.meta.env.VITE_GEOCODING_API_TOKEN
@@ -19,23 +19,6 @@ function App() {
   const airPollutionApiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${
     coordinates?.lat
   }&lon=${coordinates?.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
-
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
 
   const handleChange = (e) => {
     const searchValue = e.target.value;
@@ -73,20 +56,10 @@ function App() {
         const res = await axios.get(airPollutionApiUrl);
         const data = res.data;
 
-        setAirQualityData(data.list);
+        setAirQualityData(data.list[0]);
 
-        console.log(data);
-
-        const timeOfRetrieval = new Date(data?.list[0].dt * 1000);
-
-        const fullDate = [
-          days[timeOfRetrieval.getDay()],
-          months[timeOfRetrieval.getMonth()],
-          timeOfRetrieval.getDate(),
-        ].join(" ");
-
-        setDate(fullDate);
-        console.log(fullDate);
+        console.log(data.list[0]);
+        
       } catch (err) {
         console.error(err.message);
       }
@@ -113,7 +86,6 @@ function App() {
               handleSearch={() => handleSearch(city)}
               city={city}
               handleChange={handleChange}
-              date={date}
               pollutionData={airQualityData}
             />
           ),

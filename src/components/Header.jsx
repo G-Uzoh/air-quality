@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header className="flex justify-between items-center">
       <Link to="/" className="mt-3 ml-4">
-        <h1>AirQ</h1>
+        <h1>AIRSpy</h1>
       </Link>
       <nav className="mt-3">
         <NavLink to='/' className='mr-4'>Home</NavLink>

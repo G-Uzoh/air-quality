@@ -1,14 +1,18 @@
 import Card from "../components/Card";
 
-const AirQuality = ({ date, pollutionData }) => {
+const AirQuality = ({ pollutionData }) => {
   return (
     <>
       <h2>Air quality data will be here</h2>
       {/* <Card date={date} /> */}
       <div>
-        {pollutionData?.map((el, i) => (
-          <Card key={i} {...el} date={date} />
-        ))}
+        {pollutionData
+          ? <>
+              <Card {...pollutionData} />
+              <p>yes</p>
+            </>
+          : <p>Search city to display air qaulity data</p>
+        }
       </div>
     </>
   );

@@ -15,6 +15,7 @@ const CategoryPage = ({ city, handleChange, handleSearch, date, pollutionData })
             ? <Weather />
             : <AirQuality date={date} pollutionData={pollutionData} />
         }
+        <p>Data sourced from OpenWeatherMap API</p>
       </div>
     </>
   );
