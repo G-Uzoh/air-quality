@@ -1,17 +1,18 @@
+import Search from "../components/Search";
 import Card from "../components/Card";
 
-const AirQuality = ({ pollutionData }) => {
+const AirQuality = ({ city, handleSearch, handleChange, pollutionData }) => {
   return (
     <>
+      <Search city={city} handleSearch={() => handleSearch(city)} handleChange={handleChange} />
       <h2>Air quality data will be here</h2>
-      {/* <Card date={date} /> */}
       <div>
         {pollutionData
           ? <>
               <Card {...pollutionData} />
-              <p>yes</p>
+              <p>Data sourced from OpenWeatherMap API</p>
             </>
-          : <p>Search city to display air qaulity data</p>
+          : <p>Search city to display air pollution data</p>
         }
       </div>
     </>

@@ -1,27 +1,27 @@
 import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CategoryPage from "./pages/CategoryPage";
+// import CategoryPage from "./pages/CategoryPage";
 import Home from "./pages/Home";
 import Root from "./pages/Root";
 import About from "./pages/About";
 import axios from "axios";
+import AirQuality from "./pages/AirQuality";
 
 function App() {
   const [city, setCity] = useState("");
   const [coordinates, setCoordinates] = useState(null);
-  const [airQualityData, setAirQualityData] = useState(null);
+  const [currentAirPollution, setCurrentAirPollution] = useState(null);
+  const [airPollutionForecast, setAirPollutionForecast] = useState(null);
   // const [date, setDate] = useState(null);
 
-  const geocodingApiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${
-    import.meta.env.VITE_GEOCODING_API_TOKEN
-  }`;
+  const geocodingApiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${import.meta.env.VITE_GEOCODING_API_TOKEN}`;
 
-  const airPollutionApiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${
-    coordinates?.lat
-  }&lon=${coordinates?.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
+  const airPollutionApiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coordinates?.lat}&lon=${coordinates?.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
+
+  const airPollutionForecastApiUrl = `http://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${coordinates?.lat}&lon=${coordinates?.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
 
   const handleChange = (e) => {
-    const searchValue = e.target.value;
+    const searchValue = e.target.value.toLowerCase();
     setCity(searchValue);
   };
 
@@ -31,6 +31,7 @@ function App() {
     }
   };
 
+  // Get geographical coordinates of city
   const getCoordinates = async () => {
     try {
       const res = await axios.get(geocodingApiUrl);
@@ -50,15 +51,14 @@ function App() {
     }
   };
 
+  // Air pollution current data
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(airPollutionApiUrl);
-        const data = res.data;
+        const data = res.data.list[0];
 
-        setAirQualityData(data.list[0]);
-
-        console.log(data.list[0]);
+        setCurrentAirPollution(data);
         
       } catch (err) {
         console.error(err.message);
@@ -70,6 +70,37 @@ function App() {
     }
   }, [coordinates, airPollutionApiUrl]);
 
+  // Air pollution forecast data
+  useEffect(() => {
+    const fetchForecastData = async () => {
+      try {
+        const res = await axios.get(airPollutionForecastApiUrl);
+        const forecastData = res.data.list.reduce((acc, item) => {
+          const date = new Date(item.dt * 1000).toLocaleDateString();
+          if (!acc.some(forecastItem => forecastItem.date === date)) {
+            acc.push({
+              date,
+              aqi: item.main.aqi,
+              components: item.components,
+            });
+          }
+
+          return acc;
+        }, []).slice(1, 5);
+
+        setAirPollutionForecast(forecastData);
+
+        console.log(forecastData);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    if (coordinates) {
+      fetchForecastData();
+    }
+  }, [coordinates, airPollutionForecastApiUrl]);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -80,13 +111,13 @@ function App() {
           element: <Home />,
         },
         {
-          path: ":category",
+          path: "/air_quality",
           element: (
-            <CategoryPage
+            <AirQuality
               handleSearch={() => handleSearch(city)}
               city={city}
               handleChange={handleChange}
-              pollutionData={airQualityData}
+              pollutionData={currentAirPollution}
             />
           ),
         },

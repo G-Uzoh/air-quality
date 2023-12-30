@@ -8,7 +8,6 @@ const Home = () => {
         nitrogen dioxide and particulates. Click on the button below to find out
         how clean the air is in your city.
       </p>
-      <Link className="weather" to="/weather"></Link>
       <Link to="/air_quality">
         <button className="mt-4 bg-orange-500 hover:bg-orange-400 text-white py-2 px-4 rounded-lg">
           Get Started
