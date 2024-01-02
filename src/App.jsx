@@ -114,10 +114,12 @@ function App() {
           path: "/air_quality",
           element: (
             <AirQuality
+              {...currentAirPollution}
               handleSearch={() => handleSearch(city)}
               city={city}
               handleChange={handleChange}
-              pollutionData={currentAirPollution}
+              currentAirPollution={currentAirPollution}
+              airPollutionForecast={airPollutionForecast}
             />
           ),
         },
