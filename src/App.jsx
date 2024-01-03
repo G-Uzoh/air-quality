@@ -136,13 +136,12 @@ function App() {
           element: (
             <AirQuality
               {...currentAirPollution}
-              handleSearch={() => handleSearch(city)}
               city={city}
+              handleSearch={() => handleSearch(city)}
               handleChange={handleChange}
               currentAirPollution={currentAirPollution}
-              airPollutionForecast={airPollutionForecast}
               dateOfCurrentPollutionData={dateOfCurrentPollutionData}
-              getDateString={getDateString}
+              airPollutionForecast={airPollutionForecast}
             />
           ),
         },

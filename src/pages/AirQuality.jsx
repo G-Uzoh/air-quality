@@ -2,7 +2,7 @@ import Search from "../components/Search";
 import Card from "../components/Card";
 import PollutionForecast from "./PollutionForecast";
 
-const AirQuality = ({ city, handleSearch, handleChange, currentAirPollution, airPollutionForecast, dateOfCurrentPollutionData }) => {
+const AirQuality = ({ city, handleSearch, handleChange, currentAirPollution, dateOfCurrentPollutionData, airPollutionForecast }) => {
 
   let pollutants = [];
 
