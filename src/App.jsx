@@ -14,6 +14,24 @@ function App() {
   const [airPollutionForecast, setAirPollutionForecast] = useState(null);
   // const [date, setDate] = useState(null);
 
+  // Days of the week and calendar months
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // Helper function to obtain date in format dd MM DD
+  const getDateString = (date) => {
+    const dateValue = new Date(date * 1000);
+
+    const dateString = [
+      days[dateValue.getDay()],
+      months[dateValue.getMonth()],
+      dateValue.getDate(),
+    ].join(' ');
+
+    return dateString;
+  }
+
+  // API URLs
   const geocodingApiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${import.meta.env.VITE_GEOCODING_API_TOKEN}`;
 
   const airPollutionApiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coordinates?.lat}&lon=${coordinates?.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
@@ -26,9 +44,8 @@ function App() {
   };
 
   const handleSearch = () => {
-    if (city) {
-      getCoordinates();
-    }
+    if (city) getCoordinates();
+    else alert('Enter city to fetch pollution data!');
   };
 
   // Get geographical coordinates of city
@@ -75,9 +92,11 @@ function App() {
     const fetchForecastData = async () => {
       try {
         const res = await axios.get(airPollutionForecastApiUrl);
+        // Get unique daily forecast data
         const forecastData = res.data.list.reduce((acc, item) => {
-          const date = new Date(item.dt * 1000).toLocaleDateString();
-          if (!acc.some(forecastItem => forecastItem.date === date)) {
+          const date = getDateString(item.dt);
+          const sameDate = forecastItem => forecastItem.date === date;
+          if (!acc.some(sameDate)) {
             acc.push({
               date,
               aqi: item.main.aqi,
@@ -86,7 +105,7 @@ function App() {
           }
 
           return acc;
-        }, []).slice(1, 5);
+        }, []).slice(1, 5); // Restrict forecast to 4 days
 
         setAirPollutionForecast(forecastData);
 
@@ -99,7 +118,7 @@ function App() {
     if (coordinates) {
       fetchForecastData();
     }
-  }, [coordinates, airPollutionForecastApiUrl]);
+  }, [coordinates]);
 
   const router = createBrowserRouter([
     {
