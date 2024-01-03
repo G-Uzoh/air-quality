@@ -1,25 +1,6 @@
 const Card = ({ components, dt, main }) => {
 
     let pollutants = [];
-    
-    // // Days of the week and calendar months
-    // const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    // const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    // // Helper function to obtain date in format dd MM DD
-    // const getDateString = (date) => {
-    //     const timeOfRetrieval = new Date(date * 1000);
-
-    //     const dateString = [
-    //         days[timeOfRetrieval.getDay()],
-    //         months[timeOfRetrieval.getMonth()],
-    //         timeOfRetrieval.getDate(),
-    //     ].join(' ');
-
-    //     return dateString;
-    // }
-
-    // const dateOfCurrentPollutionData = getDateString(dt);
 
     for (const key in components) {
         const chemicalCompounds = key.replace('_', '.');

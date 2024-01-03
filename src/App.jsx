@@ -12,7 +12,7 @@ function App() {
   const [coordinates, setCoordinates] = useState(null);
   const [currentAirPollution, setCurrentAirPollution] = useState(null);
   const [airPollutionForecast, setAirPollutionForecast] = useState(null);
-  // const [date, setDate] = useState(null);
+  const [date, setDate] = useState(null);
 
   // Days of the week and calendar months
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -30,6 +30,8 @@ function App() {
 
     return dateString;
   }
+
+  const dateOfCurrentPollutionData = getDateString(date);
 
   // API URLs
   const geocodingApiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${import.meta.env.VITE_GEOCODING_API_TOKEN}`;
@@ -76,6 +78,7 @@ function App() {
         const data = res.data.list[0];
 
         setCurrentAirPollution(data);
+        setDate(data.dt);
         
       } catch (err) {
         console.error(err.message);
@@ -139,6 +142,8 @@ function App() {
               handleChange={handleChange}
               currentAirPollution={currentAirPollution}
               airPollutionForecast={airPollutionForecast}
+              dateOfCurrentPollutionData={dateOfCurrentPollutionData}
+              getDateString={getDateString}
             />
           ),
         },
