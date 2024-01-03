@@ -56,8 +56,6 @@ function App() {
       const res = await axios.get(geocodingApiUrl);
       const data = res.data;
 
-      console.log(data);
-
       if (data.features.length > 0) {
         const [lon, lat] = data.features[0].geometry.coordinates;
 

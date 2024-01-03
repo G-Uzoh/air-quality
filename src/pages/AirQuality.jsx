@@ -20,18 +20,28 @@ const AirQuality = ({ city, handleSearch, handleChange, currentAirPollution, dat
   return (
     <>
       <Search city={city} handleSearch={() => handleSearch(city)} handleChange={handleChange} />
-      <div>
+      <div className="bg-slate-500 rounded-3xl p-4 m-5 flex flex-col items-center justify-center h-[200px]">
         {currentAirPollution
           ? <>
-              <Card {...currentAirPollution} dt={dateOfCurrentPollutionData} pollutants={pollutants} />
-              <div className="bg-slate-500 rounded-3xl p-4 m-5 flex flex-col justify-center items-center">
-                <PollutionForecast airPollutionForecast={airPollutionForecast} />
+              <div>
+                <Card {...currentAirPollution} dt={dateOfCurrentPollutionData} pollutants={pollutants} />
               </div>
-              <p>Data sourced from OpenWeatherMap API</p>
+              
             </>
           : <p>Search city to display air pollution data</p>
         }
       </div>
+      <div className="bg-slate-500 rounded-3xl p-4 m-5 flex flex-col items-center justify-center">
+        {airPollutionForecast
+          ? <div>
+              <PollutionForecast airPollutionForecast={airPollutionForecast} />
+            </div>
+          : <div>Search city to display air pollution forecast</div>
+        }
+      </div>
+      {currentAirPollution &&
+        <p>Data sourced from OpenWeatherMap API</p>
+      }
     </>
   );
 };

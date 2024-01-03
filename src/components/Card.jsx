@@ -1,14 +1,16 @@
 const Card = ({ dt, main, pollutants }) => {
-  const quality = main.aqi === 1 ? 'Good' : main.aqi === 2 ? 'Fair' : main.aqi === 3 ? 'Moderate' : main.aqi === 4 ? 'Poor' : 'Very Poor';
+  const quality = main.aqi === 1 ? 'Good' : main.aqi === 2 ? 'Fair' : main.aqi === 3 ? 'Moderate' : main.aqi === 4 ? 'Poor' : 'Very poor';
 
   return (
     <>
-      <p>{dt}</p>
-      <p>
-        AQI: {main.aqi} ({quality})
-      </p>
-      <div className="bg-slate-500 rounded-3xl p-4 m-5 flex flex-col justify-center items-center">
-        <h3>Pollutants</h3>
+      <div className="flex justify-between">
+        <p>{dt}</p>
+        <p>
+            AQI: {main.aqi} ({quality})
+        </p>
+      </div>
+      <div className="flex flex-col justify-center">
+        <h3 className="mb-5 text-center">Pollutants</h3>
         <div className="grid grid-cols-8">
           {pollutants?.map((component, i) => {
             return (
