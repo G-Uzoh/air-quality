@@ -2,7 +2,7 @@ import Search from "../components/Search";
 import Card from "../components/Card";
 import PollutionForecast from "./PollutionForecast";
 
-const AirQuality = ({ city, handleSearch, handleChange, currentAirPollution, dateOfCurrentPollutionData, airPollutionForecast }) => {
+const AirQuality = ({ city, country, handleSearch, handleChange, currentAirPollution, dateOfCurrentPollutionData, airPollutionForecast }) => {
 
   let pollutants = [];
 
@@ -20,9 +20,10 @@ const AirQuality = ({ city, handleSearch, handleChange, currentAirPollution, dat
   return (
     <>
       <Search city={city} handleSearch={() => handleSearch(city)} handleChange={handleChange} />
-      <div className="bg-slate-500 rounded-3xl p-4 m-5 flex flex-col items-center justify-center h-[200px]">
+      <div className="bg-slate-400 rounded-xl p-4 mx-5 my-20 flex flex-col items-center justify-center h-56">
         {currentAirPollution
           ? <>
+              <p>{city.toUpperCase()}, {country.toUpperCase()}</p>
               <div>
                 <Card {...currentAirPollution} dt={dateOfCurrentPollutionData} pollutants={pollutants} />
               </div>
@@ -31,7 +32,7 @@ const AirQuality = ({ city, handleSearch, handleChange, currentAirPollution, dat
           : <p>Search city to display air pollution data</p>
         }
       </div>
-      <div className="bg-slate-500 rounded-3xl p-4 m-5 flex flex-col items-center justify-center">
+      <div className="bg-slate-400 rounded-xl p-4 m-5 flex flex-col items-center justify-center h-56">
         {airPollutionForecast
           ? <div>
               <PollutionForecast airPollutionForecast={airPollutionForecast} />
@@ -40,7 +41,7 @@ const AirQuality = ({ city, handleSearch, handleChange, currentAirPollution, dat
         }
       </div>
       {currentAirPollution &&
-        <p>Data sourced from OpenWeatherMap API</p>
+        <p className="text-center">Data sourced from OpenWeatherMap API</p>
       }
     </>
   );

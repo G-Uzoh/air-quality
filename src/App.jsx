@@ -9,6 +9,7 @@ import AirQuality from "./pages/AirQuality";
 
 function App() {
   const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
   const [coordinates, setCoordinates] = useState(null);
   const [currentAirPollution, setCurrentAirPollution] = useState(null);
   const [airPollutionForecast, setAirPollutionForecast] = useState(null);
@@ -55,11 +56,14 @@ function App() {
     try {
       const res = await axios.get(geocodingApiUrl);
       const data = res.data;
-
+      
       if (data.features.length > 0) {
         const [lon, lat] = data.features[0].geometry.coordinates;
-
+        const location = data.features[0].place_name.split(' ').slice(-1).join('');
+        
         setCoordinates({ lat, lon });
+        setCountry(location);
+        
       } else {
         console.error("City not found!");
       }
@@ -135,6 +139,7 @@ function App() {
             <AirQuality
               {...currentAirPollution}
               city={city}
+              country={country}
               handleSearch={() => handleSearch(city)}
               handleChange={handleChange}
               currentAirPollution={currentAirPollution}
@@ -152,7 +157,7 @@ function App() {
   ]);
 
   return (
-    <div className="bg-green-700 text-[#333]">
+    <div className="bg-[#304269] text-white">
       <RouterProvider router={router} />
     </div>
   );

@@ -10,7 +10,7 @@ const Card = ({ dt, main, pollutants }) => {
         </p>
       </div>
       <div className="flex flex-col justify-center">
-        <h3 className="mb-5 text-center">Pollutants</h3>
+        <h3 className="mb-5 text-center font-semibold">Pollutants</h3>
         <div className="grid grid-cols-8">
           {pollutants?.map((component, i) => {
             return (
