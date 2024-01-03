@@ -79,9 +79,9 @@ function App() {
 
         setCurrentAirPollution(data);
         setDate(data.dt);
-        
+
       } catch (err) {
-        console.error(err.message);
+        console.error('Error:', err.message);
       }
     };
 
@@ -112,7 +112,6 @@ function App() {
 
         setAirPollutionForecast(forecastData);
 
-        console.log(forecastData);
       } catch (err) {
         console.error(err.message);
       }
