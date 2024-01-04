@@ -14,6 +14,7 @@ const AirQuality = ({ city, country, handleSearch, handleChange, currentAirPollu
     const atom = atoms ? atoms.toString() : null;
     const compound = chemicalCompounds.replace(atoms, '').toUpperCase();
     const concentration = parseFloat(currentAirPollution.components[key]);
+    
     pollutants.push({ compound, atom, concentration });
   }
 

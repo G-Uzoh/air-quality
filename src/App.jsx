@@ -90,8 +90,7 @@ function App() {
     if (coordinates) {
       fetchData();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coordinates]);
+  }, [coordinates, airPollutionApiUrl]);
 
   // Air pollution forecast data
   useEffect(() => {
@@ -129,7 +128,7 @@ function App() {
       fetchForecastData();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coordinates]);
+  }, [coordinates, airPollutionForecastApiUrl]);
 
   const router = createBrowserRouter([
     {
