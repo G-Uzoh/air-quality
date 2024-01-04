@@ -1,16 +1,14 @@
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
 
 const Root = () => {
   return (
-    <>
+    <div className="h-screen">
       <Header />
-      <main className="min-h-[calc(100vh-95px)]">
+      <main className="flex flex-col justify-center items-center">
         <Outlet />
       </main>
-      <Footer />
-    </>
+    </div>
   );
 };
 

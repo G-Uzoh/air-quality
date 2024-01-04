@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import CategoryPage from "./pages/CategoryPage";
 import Home from "./pages/Home";
 import Root from "./pages/Root";
 import About from "./pages/About";
@@ -59,7 +58,7 @@ function App() {
       
       if (data.features.length > 0) {
         const [lon, lat] = data.features[0].geometry.coordinates;
-        const location = data.features[0].place_name.split(' ').slice(-1).join('');
+        const location = data.features[0].place_name.split(', ').slice(-1).join('');
         
         setCoordinates({ lat, lon });
         setCountry(location);
@@ -101,20 +100,20 @@ function App() {
         // Get unique daily forecast data
         const currentDate = getDateString(new Date().getTime() / 1000);
 
-        const forecastData = res.data.list.reduce((acc, item) => {
+        const forecastData = res.data.list.reduce((forecastDataArray, item) => {
           const date = getDateString(item.dt);
           
           const sameDate = (forecastItem) => forecastItem.date === date;
           
-          if (date !== currentDate && !acc.some(sameDate)) {
-            acc.push({
+          if (date !== currentDate && !forecastDataArray.some(sameDate)) {
+            forecastDataArray.push({
               date,
               aqi: item.main.aqi,
               components: item.components,
             });
           }
 
-          return acc;
+          return forecastDataArray;
         }, []).slice(0, 4); // Restrict forecast to 4 days
 
         setAirPollutionForecast(forecastData);
