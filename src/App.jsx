@@ -63,7 +63,7 @@ function App() {
         
         setCoordinates({ lat, lon });
         setCountry(location);
-        
+
       } else {
         console.error("City not found!");
       }
@@ -90,18 +90,24 @@ function App() {
     if (coordinates) {
       fetchData();
     }
-  }, [coordinates, airPollutionApiUrl]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coordinates]);
 
   // Air pollution forecast data
   useEffect(() => {
     const fetchForecastData = async () => {
       try {
         const res = await axios.get(airPollutionForecastApiUrl);
+        
         // Get unique daily forecast data
+        const currentDate = getDateString(new Date().getTime() / 1000);
+
         const forecastData = res.data.list.reduce((acc, item) => {
           const date = getDateString(item.dt);
-          const sameDate = forecastItem => forecastItem.date === date;
-          if (!acc.some(sameDate)) {
+          
+          const sameDate = (forecastItem) => forecastItem.date === date;
+          
+          if (date !== currentDate && !acc.some(sameDate)) {
             acc.push({
               date,
               aqi: item.main.aqi,
@@ -110,7 +116,7 @@ function App() {
           }
 
           return acc;
-        }, []).slice(1, 5); // Restrict forecast to 4 days
+        }, []).slice(0, 4); // Restrict forecast to 4 days
 
         setAirPollutionForecast(forecastData);
 
@@ -122,6 +128,7 @@ function App() {
     if (coordinates) {
       fetchForecastData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
   const router = createBrowserRouter([

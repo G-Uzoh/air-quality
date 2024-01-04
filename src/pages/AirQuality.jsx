@@ -23,7 +23,7 @@ const AirQuality = ({ city, country, handleSearch, handleChange, currentAirPollu
       <div className="bg-slate-400 rounded-xl p-4 mx-5 my-20 flex flex-col items-center justify-center h-56">
         {currentAirPollution
           ? <>
-              <p>{city.toUpperCase()}, {country.toUpperCase()}</p>
+              <p className="capitalize">{city}, {country}</p>
               <div>
                 <Card {...currentAirPollution} dt={dateOfCurrentPollutionData} pollutants={pollutants} />
               </div>
