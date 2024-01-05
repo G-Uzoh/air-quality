@@ -45,8 +45,8 @@ function App() {
     setCity(searchValue);
   };
 
-  const handleSearch = (e) => {
-    if (city && e.key === 'Enter') getCoordinates();
+  const handleSearch = () => {
+    if (city) getCoordinates();
     else {
       Swal.fire({
         title: "Not allowed!",
