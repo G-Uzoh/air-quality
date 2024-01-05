@@ -52,8 +52,8 @@ function App() {
     if (city) getCoordinates();
     else {
       Swal.fire({
-        title: "Not allowed",
-        text: "Enter city to fetch pollution data!",
+        title: "Not allowed!",
+        text: "Enter city name to fetch pollution data",
         icon: "warning"
       });
     }
