@@ -13,6 +13,8 @@ function App() {
   const [currentAirPollution, setCurrentAirPollution] = useState(null);
   const [airPollutionForecast, setAirPollutionForecast] = useState(null);
   const [date, setDate] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [displayText, setDisplayText] = useState(true);
 
   // Days of the week and calendar months
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -75,14 +77,25 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
+        setDisplayText(false);
+
         const res = await axios.get(airPollutionApiUrl);
+
+        // Check if call to API was successful
+        if (res.status !== 200) {
+          throw new Error('Failed to fetch data');
+        }
+
         const data = res.data.list[0];
 
         setCurrentAirPollution(data);
         setDate(data.dt);
+        setIsLoading(false);
 
       } catch (err) {
         console.error('Error:', err.message);
+        setIsLoading(false);
       }
     };
 
@@ -95,7 +108,12 @@ function App() {
   useEffect(() => {
     const fetchForecastData = async () => {
       try {
+        setIsLoading(true);
         const res = await axios.get(airPollutionForecastApiUrl);
+
+        if (res.status !== 200) {
+          throw new Error('Failed to fetch data');
+        }
         
         // Get unique daily forecast data
         const currentDate = getDateString(new Date().getTime() / 1000);
@@ -117,9 +135,11 @@ function App() {
         }, []).slice(0, 4); // Restrict forecast to 4 days
 
         setAirPollutionForecast(forecastData);
+        setIsLoading(false);
 
       } catch (err) {
-        console.error(err.message);
+        console.error('Error:', err.message);
+        setIsLoading(false);
       }
     }
 
@@ -150,6 +170,8 @@ function App() {
               currentAirPollution={currentAirPollution}
               dateOfCurrentPollutionData={dateOfCurrentPollutionData}
               airPollutionForecast={airPollutionForecast}
+              isLoading={isLoading}
+              displayText={displayText}
             />
           ),
         },

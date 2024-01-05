@@ -16,7 +16,7 @@ const Card = ({ dt, main, pollutants }) => {
             return (
               <div
                 key={i}
-                className="bg-orange-300 p-4 m-3 rounded-xl flex flex-col items-center justify-center"
+                className="bg-blue-50 text-[#333] p-4 m-3 rounded-xl flex flex-col items-center justify-center"
               >
                 <p>
                   {component.compound}
