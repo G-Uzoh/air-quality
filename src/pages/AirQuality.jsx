@@ -20,7 +20,7 @@ const AirQuality = ({ city, country, handleSearch, handleChange, currentAirPollu
   }
 
   return (
-    <>
+    <div className="flex flex-col justify-center items-center">
       <Search city={city} handleSearch={() => handleSearch(city)} handleChange={handleChange} />
       <div className="bg-slate-400 rounded-xl p-4 mx-5 my-20 flex flex-col items-center justify-center h-56 w-1/2">
         {displayText && <p>Search city to display air pollution data</p>}
@@ -42,7 +42,7 @@ const AirQuality = ({ city, country, handleSearch, handleChange, currentAirPollu
       {currentAirPollution &&
         <p className="text-center mt-10">Data sourced from OpenWeatherMap API</p>
       }
-    </>
+    </div>
   );
 };
 

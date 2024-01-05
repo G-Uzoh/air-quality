@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home";
-import Root from "./pages/Root";
-import About from "./pages/About";
+import Header from "./components/Header";
 import axios from "axios";
 import AirQuality from "./pages/AirQuality";
 import Swal from "sweetalert2";
@@ -156,43 +153,21 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates, airPollutionForecastApiUrl]);
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Root />,
-      children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "/air_quality",
-          element: (
-            <AirQuality
-              {...currentAirPollution}
-              city={city}
-              country={country}
-              handleSearch={() => handleSearch(city)}
-              handleChange={handleChange}
-              currentAirPollution={currentAirPollution}
-              dateOfCurrentPollutionData={dateOfCurrentPollutionData}
-              airPollutionForecast={airPollutionForecast}
-              isLoading={isLoading}
-              displayText={displayText}
-            />
-          ),
-        },
-        {
-          path: "/about",
-          element: <About />,
-        },
-      ],
-    },
-  ]);
-
   return (
-    <div className="bg-[#304269] text-white">
-      <RouterProvider router={router} />
+    <div className="bg-[#304269] text-white h-screen">
+      <Header />
+      <AirQuality
+        {...currentAirPollution}
+        city={city}
+        country={country}
+        handleSearch={() => handleSearch(city)}
+        handleChange={handleChange}
+        currentAirPollution={currentAirPollution}
+        dateOfCurrentPollutionData={dateOfCurrentPollutionData}
+        airPollutionForecast={airPollutionForecast}
+        isLoading={isLoading}
+        displayText={displayText}
+      />
     </div>
   );
 }
