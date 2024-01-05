@@ -5,6 +5,7 @@ import Root from "./pages/Root";
 import About from "./pages/About";
 import axios from "axios";
 import AirQuality from "./pages/AirQuality";
+import Swal from "sweetalert2";
 
 function App() {
   const [city, setCity] = useState("");
@@ -49,7 +50,13 @@ function App() {
 
   const handleSearch = () => {
     if (city) getCoordinates();
-    else alert('Enter city to fetch pollution data!');
+    else {
+      Swal.fire({
+        title: "Not allowed",
+        text: "Enter city to fetch pollution data!",
+        icon: "warning"
+      });
+    }
   };
 
   // Get geographical coordinates of city
