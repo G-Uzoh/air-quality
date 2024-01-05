@@ -45,8 +45,8 @@ function App() {
     setCity(searchValue);
   };
 
-  const handleSearch = () => {
-    if (city) getCoordinates();
+  const handleSearch = (e) => {
+    if (city && e.key === 'Enter') getCoordinates();
     else {
       Swal.fire({
         title: "Not allowed!",
@@ -55,6 +55,10 @@ function App() {
       });
     }
   };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') getCoordinates();
+  }
 
   // Get geographical coordinates of city
   const getCoordinates = async () => {
@@ -162,6 +166,7 @@ function App() {
         country={country}
         handleSearch={() => handleSearch(city)}
         handleChange={handleChange}
+        handleKeyPress={handleKeyPress}
         currentAirPollution={currentAirPollution}
         dateOfCurrentPollutionData={dateOfCurrentPollutionData}
         airPollutionForecast={airPollutionForecast}

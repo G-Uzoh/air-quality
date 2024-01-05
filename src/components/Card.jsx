@@ -18,7 +18,7 @@ const Card = ({ dt, main, pollutants }) => {
                 key={i}
                 className="bg-blue-50 text-[#333] p-4 m-3 rounded-xl flex flex-col items-center justify-center"
               >
-                <p>
+                <p className="font-semibold">
                   {component.compound}
                   <sub>{component.atom}</sub>
                 </p>
