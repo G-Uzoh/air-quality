@@ -1,8 +1,19 @@
-# React + Vite
+# AIRSpy
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AIRSpy is a simple web application that displays information about the outdoor air quality of any geographical location.
 
-Currently, two official plugins are available:
+## How it works
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To view information about the air quality, including polluting gases, of any city, type the city name in the input field and click the search button or hit Enter on your keyboard. The app fetches the air pollution data using the coordinates of the city provided.
+
+When the app successfully retrieves all relevant data from the API, it displays the information on the user's screen. In addition, the pollution forecast data for the next 4 days is displayed.
+
+## Stack
+
+- React + Vite
+- JavaScript
+- TailwindCSS
+
+## Data source
+
+All information regarding air quality/pollution is sourced from OpenWeatherMap API.
