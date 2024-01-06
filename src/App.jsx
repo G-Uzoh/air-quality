@@ -158,13 +158,13 @@ function App() {
   }, [coordinates, airPollutionForecastApiUrl]);
 
   return (
-    <div className="bg-[#304269] text-white h-screen">
+    <div className="bg-[#304269] text-white min-h-screen">
       <Header />
       <AirQuality
         {...currentAirPollution}
         city={city}
         country={country}
-        handleSearch={() => handleSearch(city)}
+        handleSearch={handleSearch}
         handleChange={handleChange}
         handleKeyPress={handleKeyPress}
         currentAirPollution={currentAirPollution}

@@ -31,14 +31,14 @@ const AirQuality = ({
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mt-8">
       <Search
         city={city}
-        handleSearch={() => handleSearch(city)}
+        handleSearch={handleSearch}
         handleChange={handleChange}
         handleKeyPress={handleKeyPress}
       />
-      <div className="bg-slate-400 rounded-xl p-4 mx-5 my-20 flex flex-col items-center justify-center h-56 w-1/2">
+      <div className="md:bg-slate-400 rounded-xl p-4 mx-5 mt-5 md:my-20 flex flex-col items-center justify-center md:h-56 md:w-3/5">
         {displayText && <p>Search city to display air pollution data</p>}
         {isLoading && <MoonLoader color="white" />}
         {currentAirPollution && (
@@ -56,15 +56,15 @@ const AirQuality = ({
           </>
         )}
       </div>
-      <div className="bg-slate-400 rounded-xl p-4 m-5 flex flex-col items-center justify-center h-56 w-1/2">
-        {displayText && <p>Search city to display air pollution forecast</p>}
+      <div className="md:bg-slate-400 rounded-xl p-4 m-5 flex flex-col items-center justify-center md:h-56 md:w-3/5 box-border">
+        {displayText && <p className="invisible md:visible">Search city to display air pollution forecast</p>}
         {isLoading && <MoonLoader color="white" />}
         {airPollutionForecast && (
           <PollutionForecast airPollutionForecast={airPollutionForecast} />
         )}
       </div>
       {currentAirPollution && (
-        <p className="text-center mt-10">
+        <p className="text-center my-10">
           Data sourced from OpenWeatherMap API
         </p>
       )}
