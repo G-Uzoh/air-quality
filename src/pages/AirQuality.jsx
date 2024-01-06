@@ -38,7 +38,7 @@ const AirQuality = ({
         handleChange={handleChange}
         handleKeyPress={handleKeyPress}
       />
-      <div className="md:bg-slate-400 rounded-xl p-4 mx-5 mt-5 md:my-20 flex flex-col items-center justify-center md:h-56 md:w-3/5">
+      <div className="md:bg-slate-400 rounded-xl mx-5 mt-5 md:my-20 flex flex-col items-center justify-center md:h-56 md:w-3/5">
         {displayText && <p>Search city to display air pollution data</p>}
         {isLoading && <MoonLoader color="white" />}
         {currentAirPollution && (
@@ -56,7 +56,7 @@ const AirQuality = ({
           </>
         )}
       </div>
-      <div className="md:bg-slate-400 rounded-xl p-4 m-5 flex flex-col items-center justify-center md:h-56 md:w-3/5 box-border">
+      <div className="md:bg-slate-400 rounded-xl m-5 flex flex-col items-center justify-center md:h-56 md:w-3/5 box-border">
         {displayText && <p className="invisible md:visible">Search city to display air pollution forecast</p>}
         {isLoading && <MoonLoader color="white" />}
         {airPollutionForecast && (
