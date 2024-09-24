@@ -74,10 +74,18 @@ function App() {
         setCountry(location);
 
       } else {
-        console.error("City not found!");
+        Swal.fire({
+          title: "404 Not Found!",
+          text: `Found no locations with name ${city}`,
+          icon: "info",
+        });
       }
     } catch (err) {
-      console.error("Error fetching coordinates:", err.message);
+      Swal.fire({
+        title: "Error fetching coordinates!",
+        text: err.message,
+        icon: "error",
+      });
     }
   };
 
@@ -102,7 +110,11 @@ function App() {
         setIsLoading(false);
 
       } catch (err) {
-        console.error('Error:', err.message);
+        Swal.fire({
+          title: 'Error!',
+          text: err.message,
+          icon: 'error',
+        });
         setIsLoading(false);
       }
     };
@@ -146,7 +158,11 @@ function App() {
         setIsLoading(false);
 
       } catch (err) {
-        console.error('Error:', err.message);
+        Swal.fire({
+          title: 'Error!',
+          text: err.message,
+          icon: 'error',
+        });
         setIsLoading(false);
       }
     }
