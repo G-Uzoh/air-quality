@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import axios from "axios";
 import AirQuality from "./pages/AirQuality";
 import Swal from "sweetalert2";
+import { getDateString } from "./helperFunctions/getDateString";
 
 function App() {
   const [city, setCity] = useState("");
@@ -14,23 +15,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [displayText, setDisplayText] = useState(true);
 
-  // Days of the week and calendar months
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-  // Helper function to obtain date in format dd MM DD
-  const getDateString = (date) => {
-    const dateValue = new Date(date * 1000);
-
-    const dateString = [
-      days[dateValue.getDay()],
-      months[dateValue.getMonth()],
-      dateValue.getDate(),
-    ].join(' ');
-
-    return dateString;
-  }
-
+  // Get date in new format dd MM DD
   const dateOfCurrentPollutionData = getDateString(date);
 
   // API URLs
