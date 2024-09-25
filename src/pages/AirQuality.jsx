@@ -5,7 +5,6 @@ import { MoonLoader } from "react-spinners";
 
 const AirQuality = ({
   city,
-  country,
   handleSearch,
   handleChange,
   handleKeyPress,
@@ -14,6 +13,9 @@ const AirQuality = ({
   airPollutionForecast,
   isLoading,
   displayText,
+  dropdownSuggestions,
+  handleSelectSuggestion,
+  dropdownRef,
 }) => {
   
   let pollutants = [];
@@ -37,6 +39,9 @@ const AirQuality = ({
         handleSearch={handleSearch}
         handleChange={handleChange}
         handleKeyPress={handleKeyPress}
+        dropdownSuggestions={dropdownSuggestions}
+        handleSelectSuggestion={handleSelectSuggestion}
+        dropdownRef={dropdownRef}
       />
       <div className="md:bg-slate-400 rounded-xl mx-5 mt-5 md:my-20 flex flex-col items-center justify-center md:h-56 md:w-3/5">
         {displayText && <p>Search city to display air pollution data</p>}
@@ -44,7 +49,7 @@ const AirQuality = ({
         {currentAirPollution && (
           <>
             <p className="capitalize">
-              {city}, {country}
+              {city}
             </p>
             <div>
               <Card
