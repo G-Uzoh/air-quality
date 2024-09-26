@@ -25,7 +25,7 @@ const Search = ({
             <div
               key={i}
               onClick={() => handleSelectSuggestion(i)}
-              className="cursor-pointer hover:bg-[#ccc] p-1 my-px"
+              className="cursor-pointer hover:bg-[#ccc] p-1 my-px truncate max-w-full block"
             >
               {suggestion}
             </div>
